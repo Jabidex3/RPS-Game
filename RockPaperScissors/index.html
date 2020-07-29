@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor Game</title>
+    <style>
+        body{
+            background-color: black;
+            color:white;
+        }
+        h1{
+            text-align: center;
+        }
+        p{
+            text-align: center;
+        }
+        div{
+            width:50%;
+            margin-left: 25%;
+        }
+        img {
+            height: 200px;
+            width: 200px;
+        }
+        button{
+            width: 10%;
+            margin-left: 45%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Rock-Paper-Scissor Game</h1>
+    <hr>
+    <p>Directions: Click the Start Game button then click on your weapon of choice. 
+        If you are lucky you might beat your opponent the computer!</p>
+    <p id="scoreTracker"></p>
+    <div id="container" style="display:none">
+        <img id ="rock" onclick="selectThis('rock')" src="images/rock.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img id ="paper" onclick="selectThis('paper')" src="images/paper.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img id ="scissor" onclick="selectThis('scissor')" src="images/scissor.png">
+    </div>
+    <br>
+    <button id="StartButton" onclick="startGame()">Start Game</button>
+    <script>
+        var choice;
+        var rockSelected = false; //rock selected by computer
+        var paperSelected = false;
+        var scissorSelected = false;
+        var playerVictories =0;
+        var computerVictories =0;
+        var ties =0;
+        var clicked = false;
+        function startGame(){
+            document.getElementById("container").style.display = "block";
+            if(rockSelected==false && paperSelected==false && scissorSelected==false){
+                //do nothing
+            }
+            else{
+                rockSelected=false;
+                paperSelected=false;
+                scissorSelected=false;
+            }
+
+            if(clicked){
+                clicked=false;
+            }
+
+            choice = Math.floor(Math.random() * 3);
+            document.getElementById("StartButton").innerHTML="Play Again?";
+            if(choice == 0){
+                rockSelected =true;
+            }
+            else if(choice ==1){
+                paperSelected = true;
+            }
+            else{
+                scissorSelected = true;
+            }
+        }
+
+        function selectThis(i){
+            if(i.localeCompare('rock')==0){
+                if(clicked){
+                    alert("Please click the 'Play Again?' button to try again!");
+                }
+                if(rockSelected && clicked==false){
+                    alert("Both you and the computer has chosen rock! It is a tie!");
+                    ties+=1;
+                    clicked=true;
+                }
+                else if(paperSelected && clicked==false){
+                    alert("You Have Chosen rock, while the computer has chosen paper! You Lose!");
+                    computerVictories+=1;
+                    clicked=true;
+                }
+                else if(scissorSelected && clicked==false){
+                    alert("You Have Chosen rock, while the computer has chosen scissor! You Win!");
+                    playerVictories+=1;
+                    clicked=true;
+                }
+            }
+            else if(i.localeCompare('paper')==0){
+                if(clicked){
+                    alert("Please click the 'Play Again?' button to try again!");
+                }
+                if(rockSelected && clicked==false){
+                    alert("You Have Chosen Paper, while the computer has chosen rock! You Win!");
+                    playerVictories+=1;
+                    clicked=true;
+                }
+                else if(paperSelected && clicked==false){
+                    alert("Both you and the computer has chosen paper! It is a tie!");
+                    ties+=1;
+                    clicked=true;
+                }
+                else if(scissorSelected && clicked==false){
+                    alert("You Have Chosen paper, while the computer has chosen scissor! You lose!");
+                    computerVictories+=1;
+                    clicked=true;
+                }
+            }
+            else{
+                if(clicked){
+                    alert("Please click the 'Play Again?' button to try again!");
+                }
+                if(rockSelected && clicked==false){
+                    alert("You Have Chosen Scissor, while the computer has chosen rock! You lose!");
+                    computerVictories+=1;
+                    clicked=true;
+                }
+                else if(paperSelected && clicked==false){
+                    alert("You Have Chosen Scissors, while the computer has chosen Paper! You Win!");
+                    playerVictories+=1;
+                    clicked=true;
+                }
+                else if(scissorSelected && clicked==false){
+                    alert("Both you and the computer has chosen scissors! It is a tie!");
+                    ties+=1;
+                    clicked=true;
+                }
+            }
+
+            document.getElementById("scoreTracker").innerHTML = "Player Victories: "+playerVictories+" <br> Computer Victories: "+computerVictories+" <br> Ties: " +ties;
+        }
+    </script>
+</body>
+</html>
